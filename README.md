@@ -21,7 +21,7 @@ We first set up a splinter to run the scraping in, specified the target url, the
 We utilized yfinance library to pull "SPY" and "DXY" ticker data, representing the S&P 500 ETF and the US Dollar currency index, respectively. We've decided on these ticker symbols to be a proxy for the stock market and foreign exchange volatility. The scraped data records the date and time, open, high, low, close, volume. We also exported the raw data into CSV format in order to manipulate and test the data.
 
 ## Transform: Data cleanup & analysis
-***Relevant files: quickDBD.sql***
+***Relevant files: quickDBD.sql, fed_press_releases.csv***
 
 In order for the data from the Fed press releases, S&P 500 index, and USD currency index to be compatable, we had to first manipulate the formattng of date and time in the data from the press releases. We first merged the two separate date and time dataframe columns into one datetime column, then account for the extra hour during Daylight Saving Time (Fed press releases are all in either EST or EDT timezone). Finally, we adjusted the string to match the format Yahoo Finance scraper pulled.
 
