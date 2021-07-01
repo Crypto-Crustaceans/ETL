@@ -50,7 +50,7 @@ The query utilized LEFT JOIN with the formatted datetime column as the key. From
 
 ## Analysis and Conclusions
 
-### Daily Changes in the S&P 500 Index for Each Categories of Fed Press Announcement:
+### Daily Changes in the S&P 500 Index for Each Categories of Fed Press Announcement
 
 ![image](https://user-images.githubusercontent.com/78992395/124064804-62e9db80-d9ea-11eb-92cf-ffc3a384fd72.png)
 
@@ -60,7 +60,7 @@ The greatest positive impacts at 70 cents/day come from Orders on Banking Applic
 
 There is a slight negative correlation with Banking and Consumer Regulatory Policy, negative news for anyone impacted. Such announcements impose regulations on impacted industries and banks. It must be noted, however, that a 6 cents/day change may not be a strong enough correlation to base financial decisions on.
 
-### Daily Changes in the US Dollar Currency Index for Each Categories of Fed Press Announcement:
+### Daily Changes in the US Dollar Currency Index for Each Categories of Fed Press Announcement
 
 ![image](https://user-images.githubusercontent.com/78992395/124064898-92004d00-d9ea-11eb-893e-7daebe2ac4f2.png)
 
