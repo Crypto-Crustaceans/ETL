@@ -4,7 +4,11 @@
 
 For our ETL project, we've decided to examine the immediate impact a central banking system has on the securities market, specifically the United States' central bank, the Federal Reserve, and its impact on the S&P 500 index and strength of USD currency. Monetary policy can take a long time to impact interest rate, inflation, unemployment, etc, and those effects are often hard to quantify. With that said, the securities and foreign exchange markets can react immediately to sudden announcements.
 
+![image](https://user-images.githubusercontent.com/78992395/124069556-39807e00-d9f1-11eb-93c6-600c96209079.png)
+
 The Fed Board of Governors keep a log of all their press releases since 2006 on their official website (https://www.federalreserve.gov/newsevents/pressreleases.htm) and categorizes them by types: Monetary Policy, Orders on Banking Application, Enforcement Actions, Banking and Consumer Regulatory Policy, and Other Announcements. We are scraping information from each press releases in order to plot them against the changes in the S&P 500 index.
+
+![image](https://user-images.githubusercontent.com/78992395/124069709-78aecf00-d9f1-11eb-84bf-16cf0f6d2298.png)
 
 The S&P 500 serves as a good proxy for the securities index as it tracks the largest 500 companies on the U.S. stock exchanges. The source of data we are scraping this from is Yahoo Finance, as new data constantly updates and historical data is readily available to manipulate and analyze.
 
@@ -21,11 +25,21 @@ We first set up Splinter to run the scraping in Chrome, specified the target url
 We utilized yfinance library to pull "SPY" and "UUP" ticker data, representing the S&P 500 ETF and the US Dollar currency index, respectively. We've decided on these ticker symbols to be a proxy for the stock market and foreign exchange volatility. The scraped data records the date and time, open, high, low, close, volume. We also exported the raw data into CSV format in order to manipulate and test the data.
 
 ## Transform: Data cleanup & analysis
-***Relevant files: quickDBD.sql, fed_press_releases.csv***
+***Relevant files: fed_reserve_press_release_scraper.ipynb, fed_press_releases.csv***
+
+![image](https://user-images.githubusercontent.com/78992395/124068979-536d9100-d9f0-11eb-9018-84759ed1bc17.png)
+
+In order for the data from the Fed press releases, S&P 500 index, and USD currency index to be compatable, we had to first manipulate the formattng of date and time in the data from the press releases. We first merged the two separate date and time dataframe columns into one datetime column, then account for the extra hour during Daylight Saving Time (Fed press releases are all in either EST or EDT timezone). Finally, we adjusted the string to match the format Yahoo Finance scraper pulled.
+
+![image](https://user-images.githubusercontent.com/78992395/124069428-01793b00-d9f1-11eb-8071-608f7d6c5689.png)
 
 In order for the data from the Fed press releases, S&P 500 index, and USD currency index to be compatable, we had to first manipulate the formattng of date and time in the data from the press releases. We first merged the two separate date and time dataframe columns into one datetime column, then account for the extra hour during Daylight Saving Time (Fed press releases are all in either EST or EDT timezone). Finally, we adjusted the string to match the format Yahoo Finance scraper pulled.
 
 ## Load: Putting together everything together with SQLAlchemy
+***Relevant files: quickDBD.sql
+
+![image](https://user-images.githubusercontent.com/78992395/124069035-70a25f80-d9f0-11eb-93fd-2a2357eb3732.png)
+
 We put together the SQL schemas using QuickDBD diagram tool (https://www.quickdatabasediagrams.com/). The link to the schema is https://app.quickdatabasediagrams.com/#/d/voTMBM. The three tables were then loaded: "Press" Fed press releases, "SPY" S&P 500 index, and "UUP" USD currency index. We chose to compare Fed press releases against the S&P and UUP separately, as we treated the two indexes as two separate dependent variables, and independent from each other.
 
 We realized that not all Fed announcements are equal, and therefore we chose to group them by their categories. And since we are focusing on the impact of these annoucements, we compared them against the daily changes (closing price in USD minus opening price in USD). 
