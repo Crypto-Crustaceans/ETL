@@ -30,3 +30,7 @@ We put together the SQL schemas using QuickDBD diagram tool (https://www.quickda
 ## Load: Putting together everything together with SQLAlchemy
 
 
+
+![image](https://user-images.githubusercontent.com/78992395/124064804-62e9db80-d9ea-11eb-92cf-ffc3a384fd72.png)
+
+
