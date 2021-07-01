@@ -11,7 +11,7 @@ The S&P 500 serves as a good proxy for the securities index as it tracks the lar
 ## Extract: Scraping Federal Reserve press releases market data from Yahoo Finance
 
 ### Federal Reserve Press Releases
-***Relevant files: fed_reserve_press_release_scraper.ipynb, fed_press_releases.csv, fed_press_releases_content.csv***
+***Relevant files: fed_reserve_press_release_scraper.ipynb, fed_press_releases.csv***
 
 We first set up a splinter to run the scraping in, specified the target url, then utilized Selenium in order to deal with JavaScript elements. Each pages are looped through, regardless of press release types, then in each pages, an HTML object is created to scrape using Beautiful Soup. The elements we are scraping are the url, date, time, and content of article. We exported the raw data into CSV so we could easily test and graph them.
 
