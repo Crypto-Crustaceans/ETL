@@ -1,4 +1,4 @@
-# Crypto Crustaceans ETL Project
+# Do Federal Reserve Press Announcements Have an Impact on the Securities Market?
 
 ## Objective
 
@@ -10,7 +10,7 @@ The Fed Board of Governors keep a log of all their press releases since 2006 on 
 
 ![image](https://user-images.githubusercontent.com/78992395/124069709-78aecf00-d9f1-11eb-84bf-16cf0f6d2298.png)
 
-The S&P 500 serves as a good proxy for the securities index as it tracks the largest 500 companies on the U.S. stock exchanges. The source of data we are scraping this from is Yahoo Finance, as new data constantly updates and historical data is readily available to manipulate and analyze.
+The S&P 500 serves as a good proxy for the securities index as it tracks the largest 500 companies on the U.S. stock exchanges. The source of data we are scraping this from is Yahoo Finance, as new data constantly updates and historical data is readily available to manipulate and analyze. 
 
 We also chose to review data on the US Dollar Currency Index as a proxy for the stregth of the USD. The ticker symbol here is UUP, and the data is also from Yahoo Finance.
 
@@ -19,12 +19,12 @@ We also chose to review data on the US Dollar Currency Index as a proxy for the 
 ### Federal Reserve Press Releases
 ***Relevant files: fed_reserve_press_release_scraper.ipynb, fed_press_releases.csv***
 
-We first set up Splinter to run the scraping in Chrome, specified the target url, then utilized Selenium in order to deal with JavaScript elements. Each pages are looped through, regardless of press release types, then in each pages, an HTML object is created to scrape using Beautiful Soup. The elements we are scraping are the url, date, time, and content of article. We exported the raw data into CSV so we could easily test and graph them.
+We first set up Splinter to run the scraping in Chrome, specified the target url, then utilized Selenium in order to deal with JavaScript elements. Each pages were looped through, regardless of press release types, then in each pages, an HTML object was created to scrape using Beautiful Soup. The elements we scraped are the url, date, time, and content of article. We exported the raw data into CSV so we could easily test and graph them.
 
 ### Yahoo Finance
 ***Relevant files: yfinance.ipynb, SPY.csv, UUP.csv***
 
-We utilized yfinance library to pull "SPY" and "UUP" ticker data, representing the S&P 500 ETF and the US Dollar currency index, respectively. We've decided on these ticker symbols to be a proxy for the stock market and foreign exchange volatility. The scraped data records the date and time, open, high, low, close, volume. We also exported the raw data into CSV format in order to manipulate and test the data.
+We utilized yfinance library to pull SPY and UUP ticker data, representing the S&P 500 Index ETF and the US Dollar Currency Index, respectively. We've decided on these ticker symbols to be a proxy for the stock market and foreign exchange volatility. The scraped data records the date and time, open, high, low, close, volume. We also exported the raw data into CSV format in order to manipulate and test the data.
 
 ## Transform: Data cleanup & analysis
 ***Relevant files: fed_reserve_press_release_scraper.ipynb, fed_press_releases.csv***
@@ -37,16 +37,16 @@ In order for the data from the Fed press releases, S&P 500 index, and USD curren
 
 In order for the data from the Fed press releases, S&P 500 index, and USD currency index to be compatable, we had to first manipulate the formattng of date and time in the data from the press releases. We first merged the two separate date and time dataframe columns into one datetime column, then account for the extra hour during Daylight Saving Time (Fed press releases are all in either EST or EDT timezone). Finally, we adjusted the string to match the format Yahoo Finance scraper pulled.
 
-## Load: Putting together everything together with SQLAlchemy
+## Load: Putting everything together with SQLAlchemy
 ***Relevant files: quickDBD.sql
 
 ![image](https://user-images.githubusercontent.com/78992395/124069035-70a25f80-d9f0-11eb-93fd-2a2357eb3732.png)
 
-We put together the SQL schemas using QuickDBD diagram tool (https://www.quickdatabasediagrams.com/). The link to the schema is https://app.quickdatabasediagrams.com/#/d/voTMBM. The three tables were then loaded: "Press" Fed press releases, "SPY" S&P 500 index, and "UUP" USD currency index. We chose to compare Fed press releases against the S&P and UUP separately, as we treated the two indexes as two separate dependent variables, and independent from each other.
+We put together the SQL schemas using QuickDBD diagram tool (https://www.quickdatabasediagrams.com/). The link to the schema is https://app.quickdatabasediagrams.com/#/d/voTMBM. The three tables were then loaded: "Press" Fed press releases, "SPY" S&P 500 index, and "UUP" USD currency index. We chose to compare Fed press releases against the S&P and UUP separately, as we treated the two indices as two separate dependent variables, and independent from each other.
 
 We realized that not all Fed announcements are equal, and therefore we chose to group them by their categories. And since we are focusing on the impact of these annoucements, we compared them against the daily changes (closing price in USD minus opening price in USD). 
 
-The query utilized LEFT JOIN with the formatted datetime column as the key. From this new table, we grouped each Fed press releases by category, then averaged the dollar amount of changes in the market that day for each respective categories. Finally, we rounded the data to make it more legible and easier to review.
+The query utilized left join with the formatted datetime column as the key. Left join (with press announcement data on the right table) preserves market data on the days when there are no press announcements from the Fed. From this new table, we grouped each Fed press releases by category, then averaged the dollar amount of changes in the market that day for each respective categories. Finally, we rounded the data to make it more legible and easier to review.
 
 ## Analysis and Conclusions
 
