@@ -6,11 +6,13 @@ For our ETL project, we've decided to examine the immediate impact a central ban
 
 ![image](https://user-images.githubusercontent.com/78992395/124069556-39807e00-d9f1-11eb-93c6-600c96209079.png)
 
-The Fed Board of Governors keep a log of all their press releases since 2006 on their official website (https://www.federalreserve.gov/newsevents/pressreleases.htm) and categorizes them by types: Monetary Policy, Orders on Banking Application, Enforcement Actions, Banking and Consumer Regulatory Policy, and Other Announcements. We are scraping information from each press releases in order to plot them against the changes in the S&P 500 index.
+The Fed Board of Governors keep a log of all their press releases since 2006 on their official website (https://www.federalreserve.gov/newsevents/pressreleases.htm) and categorizes them by types: Monetary Policy, Orders on Banking Application, Enforcement Actions, Banking and Consumer Regulatory Policy, and Other Announcements. We are scraping information from each press releases in order to plot them against the changes in the S&P 500 Index.
 
 ![image](https://user-images.githubusercontent.com/78992395/124069709-78aecf00-d9f1-11eb-84bf-16cf0f6d2298.png)
 
 The S&P 500 serves as a good proxy for the securities index as it tracks the largest 500 companies on the U.S. stock exchanges. The source of data we are scraping this from is Yahoo Finance, as new data constantly updates and historical data is readily available to manipulate and analyze.
+
+We also chose to review data on the US Dollar Currency Index as a proxy for the stregth of the USD. The ticker symbol here is UUP, and the data is also from Yahoo Finance.
 
 ## Extract: Scraping Federal Reserve press releases market data from Yahoo Finance
 
