@@ -38,7 +38,7 @@ In order for the data from the Fed press releases, S&P 500 index, and USD curren
 In order for the data from the Fed press releases, S&P 500 index, and USD currency index to be compatable, we had to first manipulate the formattng of date and time in the data from the press releases. We first merged the two separate date and time dataframe columns into one datetime column, then account for the extra hour during Daylight Saving Time (Fed press releases are all in either EST or EDT timezone). Finally, we adjusted the string to match the format Yahoo Finance scraper pulled.
 
 ## Load: Putting everything together with SQLAlchemy
-***Relevant files: quickDBD.sql
+***Relevant files: quickDBD.sql***
 
 ![image](https://user-images.githubusercontent.com/78992395/124069035-70a25f80-d9f0-11eb-93fd-2a2357eb3732.png)
 
